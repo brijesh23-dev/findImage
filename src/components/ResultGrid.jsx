@@ -67,7 +67,7 @@ const ResultGrid = () => {
     if(loading) return <div className='text-white mx-auto'>Loading...</div>
 
     return (
-        <div className=' p-4 w-full columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 bg-white text-black dark:bg-gray-900 dark:text-white'>
+        <div className=' p-4 w-full columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 mode'>
             {results.map((item, idx) => {
                 return (
                     <div key={idx} className='mb-4 break-inside-avoid'>

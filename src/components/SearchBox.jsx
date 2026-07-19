@@ -13,11 +13,12 @@ const SearchBox = () => {
         setText('');
     }
     return (
-        <form action="#" className='flex gap-2  px-10 py-2 bg-white text-black dark:bg-gray-900 dark:text-white' onSubmit={SubmitHandle}>
-            <input value={text} type="text" onChange={(e) => setText(e.target.value)} placeholder='search assets here ...' className='px-4 py-2 m-5 border-2 outline-none bg-gray-800 rounded-sm text-left w-full bg-white text-black dark:bg-gray-900 dark:text-white' />
-            <button type='submit' className='m-5 border-2 outline-none rounded-sm px-8 text-center bg-white text-black dark:bg-gray-900 dark:text-white'>Search</button>
+        <form action="#" className='flex gap-2  border-none mode' onSubmit={SubmitHandle}>
+            <input value={text} type="text" onChange={(e) => setText(e.target.value)} placeholder='search assets here ...' 
+            className='text-left w-full focus:outline  hover:outline-2 hover:outline-neutral-400 rounded-full px-5 py-2 ' />
+            <button type='submit' className='text-center '>Search</button>
         </form>
     )
 }
 
-export default SearchBox
+export default SearchBox;

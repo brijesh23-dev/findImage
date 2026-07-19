@@ -10,7 +10,7 @@ const CollectionCard = ({ item }) => {
   }
 
   return (
-    <div className='group relative overflow-hidden rounded-[28px] border border-white/10 bg-slate-950 shadow-lg'>
+    <div className='group relative overflow-hidden border-none rounded-2xl'>
       <a href={item.url} target='_blank' rel='noreferrer' className='block h-80 w-full overflow-hidden'>
         {item.type === 'photo' && <img src={item.src} alt={item.title} className='h-full w-full object-cover object-center transition duration-300 group-hover:scale-105' />}
         {item.type === 'video' && <video src={item.src} className='h-full w-full object-cover object-center' controls muted />}

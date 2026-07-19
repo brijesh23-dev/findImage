@@ -8,8 +8,8 @@ const Tabs = () => {
     console.log(activeTab);
     const dispatch = useDispatch();
   return (
-    <div className='flex gap-3 px-10'>{tabs.map((tab,idx)=>(
-        <button key={idx} onClick={()=>dispatch(setActiveTabs(tab))} className={`${(activeTab===tab ? 'bg-blue-900' : 'bg-blue-600')} px-3 py-1 rounded-lg m-3 cursor-pointer hover:scale-95`}>{tab}</button>
+    <div className='flex gap-3 justify-center items-center border-none mode font-Inter font-light '>{tabs.map((tab,idx)=>(
+        <button key={idx} onClick={()=>dispatch(setActiveTabs(tab))} className={`${(activeTab===tab ?  '' : '')}  shadow-md px-3  py-2 cursor-pointer `}>{tab}</button>
     ))}</div>
   )
 }
