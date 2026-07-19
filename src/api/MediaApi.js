@@ -11,9 +11,9 @@ export async function getPhotos(query,page=1,per_Page=10){
     return res.data
 }
 
-export async function getVideos(){
+export async function getVideos(query,per_page=30){
     const res = await axios.get('https://api.pexels.com/videos/search',{
-        // params:{query,per_page},
+        params:{query,per_page},
         headers:{Authorization:`${pexel_key}`}
     })
     return res.data
@@ -21,7 +21,7 @@ export async function getVideos(){
 }
 export async function getGif(query,limit=20){
     const res = await axios.get('https://tenor.googleapis.com/v2/search',{
-        params:{q:query,key:tenor_key,limit}
+        params:{query,key:tenor_key,limit}
     })
     return res.data
     
