@@ -8,9 +8,10 @@ import { Link } from "react-router-dom";
 import { ThemeHook } from "../hook/ThemeHook.jsx";
 import { CiHardDrive, CiHeart } from "react-icons/ci";
 const Homepage = () => {
-  const { query } = useSelector((store) => store.search);
+  const { query,results } = useSelector((store) => store.search);
+  
   return (
-    <div>
+      <div>
       <div className="mode flex justify-around  items-center px-5 h-[70px] font-Inter font-light tracking-tighter">
         <div>
           <h2 className="text-medium">MediaSearch</h2>

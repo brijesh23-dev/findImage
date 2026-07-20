@@ -20,7 +20,6 @@ const ResultGrid = () => {
                 }
                 if (activeTab === 'Photos') {
                     let response = await getPhotos(query);
-                    console.log(response);
                     data = response.results.map((item) => ({
                         id: item.id,
                         type: 'photo',
@@ -46,7 +45,6 @@ const ResultGrid = () => {
                 }
                 if (activeTab === 'GIFs') {
                     let response = await getGif(query);
-                    console.log(response);
                     data = response.results.map((item) => ({
                         id: item.id,
                         type: 'gif',

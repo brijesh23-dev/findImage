@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <div
-        className="min-h-screen w-full bg-gray-950 text-white "
+        className="min-h-screen w-full mode "
         data-scroll
         data-scroll-speed="1"
       >

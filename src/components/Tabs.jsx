@@ -4,7 +4,6 @@ import { setActiveTabs } from "../features/searchSlice";
 const Tabs = () => {
   const tabs = ["Photos", "Videos", "GIFs"];
   const activeTab = useSelector((state) => state.search.activeTab);
-  console.log(activeTab);
   const dispatch = useDispatch();
   return (
     <div className="flex gap-3 p-3 justify-center items-center border-none dark:text-white dark:bg-neutral-900 bg-teal-50 text-neutral-700  font-Inter font-light ">
