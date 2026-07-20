@@ -5,8 +5,8 @@ export const ThemeHook = () => {
     const { theme, toggleTheme } = useTheme();
 
   return (
-    <button onClick={toggleTheme}>
-      {theme === "dark" ? <CiSun className="text-2xl"></CiSun> : <CiCloudSun className="text-2xl"></CiCloudSun>}
+    <button onClick={toggleTheme} className="text-2xl cursor-pointer ">
+      {theme === "dark" ? <CiSun ></CiSun> : <CiCloudSun ></CiCloudSun>}
     </button>
   );
 }

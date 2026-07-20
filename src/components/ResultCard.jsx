@@ -13,7 +13,7 @@ const ResultCard = ({ item = {} }) => {
   return (
     <div className='w-full gap-4 relative  rounded-md overflow-hidden shadow-lg'>
       <a className='h-full block' href={item.url}>
-        {item.type === 'photo' && <img src={item.src} alt={item.title} className='mb-4 w-full transition duration-300 hover:scale-105 object-cover object-center' />}
+        {item.type === 'photo' && <img src={item.src} alt={item.title} className='w-full object-cover object-center hover:scale-105 transition duration-200 ease-in' />}
         {item.type === 'video' && <video src={item.src} className='w-full h-full object-cover object-center rounded-t' controls autoPlay mut></video>}
         {item.type === 'gif' && <img src={item.src} alt={item.title} className='w-full object-center object-cover rounded-t' />}
       </a>

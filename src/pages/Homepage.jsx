@@ -6,6 +6,7 @@ import SearchBox from "../components/SearchBox.jsx";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { ThemeHook } from "../hook/ThemeHook.jsx";
+import { CiHardDrive, CiHeart } from "react-icons/ci";
 const Homepage = () => {
   const { query } = useSelector((store) => store.search);
   return (
@@ -17,7 +18,7 @@ const Homepage = () => {
         <div><SearchBox /></div>
         <div className="flex gap-5">
           <Link to="/">Search</Link>
-          <Link to="/collection">Collection</Link>
+          <Link to="/collection"><CiHeart  className="text-2xl hover:text-red-600"></CiHeart></Link>
           <ThemeHook></ThemeHook>
         </div>
       </div>

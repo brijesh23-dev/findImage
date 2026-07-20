@@ -4,7 +4,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 .mode{
-    @apply bg-white text-black dark:bg-gray-900 dark:text-white;
+    @apply bg-teal-50 text-neutral-700 dark:bg-neutral-900 dark:text-white;
 }
 
 @theme{
