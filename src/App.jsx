@@ -2,8 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage.jsx";
 import Collection from "./pages/CollectionPage.jsx";
 import { ToastContainer, Bounce } from "react-toastify";  
-import LocomotiveScroll from "locomotive-scroll";
-const locomotiveScroll = new LocomotiveScroll();
 
 function App() {
   return (

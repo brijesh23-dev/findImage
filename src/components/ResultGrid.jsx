@@ -3,9 +3,10 @@ import { getGif, getPhotos, getVideos } from '../api/MediaApi.js';
 import {setLoading, setError, setResults } from '../features/searchSlice.js';
 import ResultCard from './ResultCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
+import ResultGridShimmer from './ResultGridShimmer.jsx';
 
 const ResultGrid = () => {
-
+   
     const { query, activeTab, loading, results, error } = useSelector((store) => store.search);
     const dispatch = useDispatch();
 
@@ -13,6 +14,10 @@ const ResultGrid = () => {
         const getdata = async () => {
             try {
                 let data = [];
+                if (!activeTab) {
+                    dispatch(setResults([]));
+                    return;
+                }
                 dispatch(setLoading());
                 if (!query) {
                     dispatch(setResults([]));
@@ -61,8 +66,12 @@ const ResultGrid = () => {
         }
         getdata();
     }, [query, activeTab, dispatch]);
-    if(error) return <div className='text-white'>Error: {error}</div>
-    if(loading) return <div className='text-white mx-auto'>Loading...</div>
+    if (error) return <div className='text-white'>Error: {error}</div>
+    if (!activeTab) return <div className='p-4 text-center text-neutral-500'>Select a tab to view results</div>
+    if (loading) return (
+        <ResultGridShimmer />
+    )
+    if(results.length === 0) return <div className='p-4 text-center text-neutral-500'>No results found</div>
 
     return (
         <div className=' p-4 w-full columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 mode'>

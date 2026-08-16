@@ -1,7 +1,13 @@
 import Tabs from "../components/Tabs.jsx";
-//import ResultGrid from "../components/ResultGrid.jsx";
-import { lazy, Suspense } from "react";
-const ResultGrid = lazy(()=> import("../components/ResultGrid.jsx"))
+import ResultGrid from "../components/ResultGrid.jsx";
+// const ResultGrid = lazy(()=>{
+//   return new Promise((resolve)=>{
+//     setTimeout(()=>{
+//       resolve(import("../components/ResultGrid.jsx"))
+//     },2000)
+//   })
+// })
+
 import SearchBox from "../components/SearchBox.jsx";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -28,9 +34,7 @@ const Homepage = () => {
       ) : (
         <div>
           <Tabs />
-          <Suspense fallback={<h1>loading....</h1>}  >
             <ResultGrid />
-          </Suspense>
         </div>
       )}
     </div>
