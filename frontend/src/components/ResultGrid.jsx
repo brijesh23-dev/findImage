@@ -1,0 +1,96 @@
+import { useEffect, useState } from 'react';
+import { getGif, getPhotos, getVideos } from '../api/MediaApi.js';
+import {setLoading, setError, setResults } from '../features/searchSlice.js';
+import ResultCard from './ResultCard.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import ResultGridShimmer from './ResultGridShimmer.jsx';
+import ErrorState from './ErrorState.jsx';
+
+const ResultGrid = () => {
+    const [retryCount, setRetryCount] = useState(0);
+    const { query, activeTab, loading, results, error } = useSelector((store) => store.search);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const getdata = async () => {
+            try {
+                let data = [];
+                if (!activeTab) {
+                    dispatch(setResults([]));
+                    return;
+                }
+                dispatch(setLoading());
+                if (!query) {
+                    dispatch(setResults([]));
+                    return;
+                }
+                if (activeTab === 'Photos') {
+                    let response = await getPhotos(query);
+                    data = response.results.map((item) => ({
+                        id: item.id,
+                        type: 'photo',
+                        title: item.alt_description,
+                        thumbnail: item.urls.small,
+                        src: item.urls.full,
+                        url:item.links.html,
+                        save:item.links.download
+                    }));
+                    dispatch(setResults(data));
+                }
+                if (activeTab === 'Videos') {
+                    let response = await getVideos(query);
+                    data = response.videos.map((item) => ({
+                        id: item.id,
+                        type: 'video',
+                        title: item.user.name || 'video',
+                        thumbnail: item.image,
+                        src: item.video_files[0].link,
+                        url:item.url
+                    }));
+                    dispatch(setResults(data));
+                }
+                if (activeTab === 'GIFs') {
+                    let response = await getGif(query);
+                    data = response.results.map((item) => ({
+                        id: item.id,
+                        type: 'gif',
+                        title:'GIF',
+                        thumbnail: item.media_formats.tinygif.url,
+                        src: item.media_formats.gif.url,
+                        url:item.url
+                    }));
+                    dispatch(setResults(data));
+                }
+            } catch (err) {
+                dispatch(setError(err.message || 'Failed to fetch'));
+            }
+        }
+        getdata();
+    }, [query, activeTab, dispatch, retryCount]);
+    if (error) return (
+        <ErrorState
+            title={`Couldn't load ${activeTab.toLowerCase()}`}
+            message={error}
+            onRetry={() => setRetryCount((count) => count + 1)}
+        />
+    )
+    if (!activeTab) return <div className='p-4 text-center text-neutral-500'>Select a tab to view results</div>
+    if (loading) return (
+        <ResultGridShimmer />
+    )
+    if(results.length === 0) return <div className='p-4 text-center text-neutral-500'>No results found</div>
+
+    return (
+        <div className=' p-4 w-full columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-4 mode'>
+            {results.map((item, idx) => {
+                return (
+                    <div key={idx} className='mb-4 break-inside-avoid'>
+                        <ResultCard item={item} />
+                    </div>
+                )
+            })}
+        </div>
+    )
+}
+
+export default ResultGrid
