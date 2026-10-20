@@ -1,62 +1,14 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  FiAperture,
-  FiArrowLeft,
-  FiEye,
-  FiEyeOff,
-} from "react-icons/fi";
-import { loginUser, registerUser } from "../api/AuthApi.js";
+import { Link } from "react-router-dom";
+import { FiAperture } from "react-icons/fi";
+import LoginForm from "../components/LoginForm.jsx";
+import SignupForm from "../components/SignupForm.jsx";
 
 const LoginPage = () => {
   const [isRegistering, setIsRegistering] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setErrorMessage("");
-    setIsSubmitting(true);
-    const formData = new FormData(event.currentTarget);
-    const credentials = Object.fromEntries(formData.entries());
-    console.log("Credentials:", credentials);
-
-    try {
-      if (isRegistering) {
-        await registerUser(credentials);
-      } else {
-        await loginUser(credentials);
-      }
-
-      navigate("/", { replace: true });
-    } catch (error) {
-      const serverMessage =
-        typeof error.response?.data?.message === "string"
-          ? error.response.data.message
-          : "";
-      const knownMessages = {
-        "Email registered nahi hai.":
-          "We couldn't find an account with that email. Check it or create an account.",
-        "galat password dala hai.": "That password doesn't match. Try again.",
-        "User already exists.":
-          "An account with that email already exists. Sign in instead.",
-      };
-
-      setErrorMessage(
-        knownMessages[serverMessage] ||
-          serverMessage ||
-          "We couldn't reach MediaSearch. Check your connection and try again.",
-      );
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const switchMode = (registering) => {
     setIsRegistering(registering);
-    setErrorMessage("");
   };
 
   return (
@@ -68,7 +20,7 @@ const LoginPage = () => {
           alt=""
         />
         <div className="auth-art-shade" />
-        <Link to="/" className="auth-brand">
+        <Link to="/login" className="auth-brand">
           <span className="auth-brand-icon" aria-hidden="true">
             <FiAperture />
           </span>
@@ -131,78 +83,11 @@ const LoginPage = () => {
             </button>
           </div>
 
-          <form className="auth-form" onSubmit={handleSubmit}>
-            {isRegistering && (
-              <label className="auth-field">
-                <span>Your name</span>
-                <input
-                  autoComplete="name"
-                  name="name"
-                  placeholder="Alex Morgan"
-                  required
-                  type="text"
-                />
-              </label>
-            )}
+          {isRegistering ? <SignupForm /> : <LoginForm />}
 
-            <label className="auth-field">
-              <span>Email address</span>
-              <input
-                autoComplete="email"
-                name="email"
-                placeholder="you@example.com"
-                required
-                type="email"
-              />
-            </label>
-
-            <label className="auth-field">
-              <span>Password</span>
-              <span className="auth-password-control">
-                <input
-                  autoComplete={isRegistering ? "new-password" : "current-password"}
-                  name="password"
-                  placeholder="Enter your password"
-                  required
-                  type={showPassword ? "text" : "password"}
-                />
-                <button
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                  className="auth-password-toggle"
-                  onClick={() => setShowPassword((visible) => !visible)}
-                  type="button"
-                >
-                  {showPassword ? <FiEyeOff /> : <FiEye />}
-                </button>
-              </span>
-            </label>
-
-            {errorMessage && (
-              <p className="auth-error" role="alert">
-                {errorMessage}
-              </p>
-            )}
-
-            <button
-              className="auth-submit"
-              type="submit"
-              disabled={isSubmitting}
-              aria-busy={isSubmitting}
-            >
-              {isSubmitting
-                ? isRegistering
-                  ? "Creating account..."
-                  : "Signing in..."
-                : isRegistering
-                  ? "Create account"
-                  : "Sign in"}
-            </button>
-          </form>
-
-          <Link className="auth-back-link" to="/">
-            <FiArrowLeft aria-hidden="true" />
-            Back to exploring
-          </Link>
+          <p className="auth-gate-note">
+            Sign in or create an account to search and save media.
+          </p>
         </div>
       </section>
     </main>

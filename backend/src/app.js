@@ -12,22 +12,18 @@ const app = express();
 const defaultFrontendOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
+  "https://find-image-4ceopwk19-asfjldsajf.vercel.app",
 ];
-const allowedFrontendOrigins = new Set(
-  (process.env.FRONTEND_ORIGINS || defaultFrontendOrigins.join(","))
-    .split(",")
-    .map((origin) => origin.trim())
-    .filter(Boolean),
-);
+const allowedFrontendOrigins = (
+  process.env.FRONTEND_ORIGINS || defaultFrontendOrigins.join(",")
+)
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 app.use(
   cors({
-    origin(origin, callback) {
-      if (origin && allowedFrontendOrigins.has(origin)) {
-        return callback(null, origin);
-      }
-      return callback(null, false);
-    },
+    origin: allowedFrontendOrigins,
     credentials: true,
   }),
 );
@@ -44,11 +40,16 @@ app.use(
     cookie: {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24,
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: process.env.NODE_ENV === "production",
     },
   }),
 );
 
 passportStatragey(passport);
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -56,6 +57,6 @@ app.get("/api/health", (req, res) => {
   res.status(201).json("api is working well..");
 });
 
-app.use("/", authRoutes);
+app.use("/api", authRoutes);
 
 export default app;

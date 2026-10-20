@@ -281,8 +281,7 @@
 
 .auth-password-toggle:focus-visible,
 .auth-mode-switch button:focus-visible,
-.auth-submit:focus-visible,
-.auth-back-link:focus-visible {
+.auth-submit:focus-visible {
     outline: 3px solid color-mix(in srgb, var(--auth-accent) 45%, transparent);
     outline-offset: 3px;
 }
@@ -334,18 +333,12 @@
     opacity: 0.72;
 }
 
-.auth-back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 28px;
+.auth-gate-note {
+    margin: 28px 0 0;
     color: var(--auth-muted);
-    font-size: 0.87rem;
-    text-decoration: none;
-}
-
-.auth-back-link:hover {
-    color: var(--auth-accent);
+    font-size: 0.82rem;
+    line-height: 1.5;
+    text-align: center;
 }
 
 @keyframes auth-enter {

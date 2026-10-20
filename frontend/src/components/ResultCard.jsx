@@ -28,9 +28,9 @@ const ResultCard = ({ item = {} }) => {
           {item.type === 'gif' && <img src={item.src} alt={item.title || 'GIF'} className='w-full object-center object-cover rounded-t' />}
         </a>
       )}
-      <div className={`${item.type === 'video' ? 'relative bg-neutral-950 px-4 py-3' : 'absolute bottom-0 w-full px-6 py-10 bg-gradient-to-b from-transparent to-black'} text-white result-card flex justify-between items-center gap-2`}>
-        <h2 className='text-md font-semibold font-sans capitalize tracking-tighter leading-4'>{item.title}</h2>
-        <button type='button' aria-label='Save to collection' className='shrink-0 font-sans font-medium bg-orange-600 rounded-sm px-3 h-8 hover:bg-orange-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white' onClick={() => { addToCollection(item) }}>SAVE</button>
+      <div className={`${item.type === 'video' ? 'relative bg-neutral-950 px-3 py-3 sm:px-4' : 'absolute bottom-0 w-full px-3 py-4 sm:px-6 sm:py-10 bg-gradient-to-b from-transparent to-black'} text-white result-card flex justify-between items-center gap-2`}>
+        <h2 className='min-w-0 truncate text-sm font-semibold font-sans capitalize leading-4 sm:text-base'>{item.title}</h2>
+        <button type='button' aria-label='Save to collection' className='min-h-11 shrink-0 font-sans font-medium bg-orange-600 rounded-sm px-3 hover:bg-orange-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white' onClick={() => { addToCollection(item) }}>SAVE</button>
       </div>
     </div>
 

@@ -20,7 +20,7 @@ No distinct positioning has been established.
 
 ## Capabilities and Constraints
 
-The frontend supports searching for photos, videos, and GIFs and saving items to a collection. The backend provides session-based login and registration. The login screen supports both forms and returns users to the main search page after successful authentication.
+The frontend supports searching for photos, videos, and GIFs and saving items to a collection. Search and collection routes require an authenticated session. The backend provides session-based login and registration. The login screen supports both forms and returns users to the requested page after successful authentication.
 
 ## Evidence on Hand
 
