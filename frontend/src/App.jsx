@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage.jsx";
 import Collection from "./pages/CollectionPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import AppErrorBoundary from "./components/AppErrorBoundary.jsx";
 import { ToastContainer, Bounce } from "react-toastify";  
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Homepage />} />
             <Route path="/collection" element={<Collection />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
           <ToastContainer

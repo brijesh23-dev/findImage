@@ -26,6 +26,7 @@ const Homepage = () => {
         <div className="flex gap-5">
           <Link to="/">Search</Link>
           <Link to="/collection"><CiHeart  className="text-2xl hover:text-red-600"></CiHeart></Link>
+          <Link to="/login" className="whitespace-nowrap">Sign in</Link>
           <ThemeHook></ThemeHook>
         </div>
       </div>

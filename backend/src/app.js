@@ -1,3 +1,5 @@
+import "dotenv/config";
+import cors from "cors";
 import express from "express";
 import passport from "passport";
 import session from "express-session";
@@ -7,6 +9,28 @@ import morgan from "morgan";
 import authRoutes from "./routes/auth.routes.js";
 
 const app = express();
+const defaultFrontendOrigins = [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+];
+const allowedFrontendOrigins = new Set(
+  (process.env.FRONTEND_ORIGINS || defaultFrontendOrigins.join(","))
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean),
+);
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (origin && allowedFrontendOrigins.has(origin)) {
+        return callback(null, origin);
+      }
+      return callback(null, false);
+    },
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
