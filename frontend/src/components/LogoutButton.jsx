@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 import { getAuthErrorMessage, logoutUser } from "../api/AuthApi.js";
 import { clearCollection } from "../features/collectionSlice.js";
 import { clearSearch } from "../features/searchSlice.js";

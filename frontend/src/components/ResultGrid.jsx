@@ -12,6 +12,7 @@ const ResultGrid = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let isActive = true;
         const getdata = async () => {
             try {
                 let data = [];
@@ -35,6 +36,8 @@ const ResultGrid = () => {
                         url:item.links.html,
                         save:item.links.download
                     }));
+                    console.log(isActive);
+                    console.log("response recieved: ",query);
                     dispatch(setResults(data));
                 }
                 if (activeTab === 'Videos') {
@@ -47,6 +50,7 @@ const ResultGrid = () => {
                         src: item.video_files[0].link,
                         url:item.url
                     }));
+                    console.log(isActive);
                     dispatch(setResults(data));
                 }
                 if (activeTab === 'GIFs') {
@@ -59,6 +63,7 @@ const ResultGrid = () => {
                         src: item.media_formats.gif.url,
                         url:item.url
                     }));
+                    console.log(isActive);
                     dispatch(setResults(data));
                 }
             } catch (err) {
@@ -66,7 +71,11 @@ const ResultGrid = () => {
             }
         }
         getdata();
+        return ()=>{
+            isActive = false;
+        }
     }, [query, activeTab, dispatch, retryCount]);
+
     if (error) return (
         <ErrorState
             title={`Couldn't load ${activeTab.toLowerCase()}`}

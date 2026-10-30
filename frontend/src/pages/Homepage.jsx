@@ -8,12 +8,15 @@ import { CiHeart } from "react-icons/ci";
 import LogoutButton from "../components/LogoutButton.jsx";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import { toast } from "react-hot-toast";
 
 const Homepage = () => {
   const { query } = useSelector((store) => store.search);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const closeMenu = () => setIsMenuOpen(false);
+  window.addEventListener("offline", () => {
+    console.log("you are offline.");
+  });
 
   return (
     <div>
@@ -34,7 +37,9 @@ const Homepage = () => {
           <button
             type="button"
             className="inline-grid size-11 place-items-center rounded-md sm:hidden"
-            aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-label={
+              isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
             aria-expanded={isMenuOpen}
             aria-controls="main-navigation"
             onClick={() => setIsMenuOpen((open) => !open)}
@@ -47,13 +52,14 @@ const Homepage = () => {
             aria-label="Main navigation"
             className={`${isMenuOpen ? "flex" : "hidden"} absolute right-4 top-[calc(100%+0.5rem)] min-w-56 flex-col items-stretch gap-2 rounded-xl border border-teal-900/10 bg-teal-50 p-3 shadow-lg dark:border-white/10 dark:bg-neutral-900 sm:static sm:flex sm:min-w-0 sm:flex-row sm:items-center sm:gap-5 sm:border-0 sm:bg-transparent sm:p-0 sm:shadow-none`}
           >
-            <Link
+            {/* <Link
               className="flex min-h-11 items-center rounded-md px-3 sm:px-0"
               to="/"
               onClick={closeMenu}
             >
               Search
-            </Link>
+            </Link> */}
+            <button onClick={()=>toast.success("chala ja bsdk")}>search</button>
             <Link
               className="flex min-h-11 items-center gap-2 rounded-md px-3 sm:px-0"
               to="/collection"
@@ -64,7 +70,7 @@ const Homepage = () => {
             </Link>
             <LogoutButton />
             <div className="flex min-h-11 items-center px-3 sm:px-0">
-              <ThemeHook />
+              <ThemeHook className="btn" />
             </div>
           </nav>
         </div>

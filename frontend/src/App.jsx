@@ -6,7 +6,7 @@ import NotFoundPage from "./pages/NotFoundPage.jsx";
 import AppErrorBoundary from "./components/AppErrorBoundary.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import AuthProvider from "./context/AuthProvider.jsx";
-import { ToastContainer, Bounce } from "react-toastify";  
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -22,35 +22,23 @@ function App() {
               <Route
                 path="/"
                 element={
-                  <ProtectedRoute>
-                    <Homepage />
-                  </ProtectedRoute>
+                  // <ProtectedRoute>
+                  <Homepage />
+                  // </ProtectedRoute>
                 }
               />
               <Route
                 path="/collection"
                 element={
-                  <ProtectedRoute>
-                    <Collection />
-                  </ProtectedRoute>
+                  // <ProtectedRoute>
+                  <Collection />
+                  // </ProtectedRoute>
                 }
               />
               <Route path="/login" element={<LoginPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
-            <ToastContainer
-              position="top-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick={false}
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="dark"
-              transition={Bounce}
-            />
+            <Toaster position="top-center" reverseOrder={false} />
           </div>
         </AuthProvider>
       </AppErrorBoundary>

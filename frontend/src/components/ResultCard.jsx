@@ -1,5 +1,6 @@
-import { addCollection ,addToast} from '../features/collectionSlice';
+import { addCollection } from '../features/collectionSlice';
 import {useDispatch} from 'react-redux';
+import { toast } from 'react-hot-toast';
 
 const ResultCard = ({ item = {} }) => {
 
@@ -7,7 +8,7 @@ const ResultCard = ({ item = {} }) => {
 
   const addToCollection = (item) => {
     dispatch(addCollection(item));
-    dispatch(addToast());
+    toast.success("Added to collection.");
   }
 
   return (

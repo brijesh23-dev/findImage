@@ -1,11 +1,13 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import { toast } from 'react-hot-toast'
 import { removeCollection } from '../features/collectionSlice'
 
 const CollectionCard = ({ item }) => {
   const dispatch = useDispatch()
   const handleRemove = (id) => {
     dispatch(removeCollection(id));
+    toast.error("An item was removed from the collection.");
   }
 
   return (
