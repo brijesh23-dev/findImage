@@ -1,7 +1,7 @@
 import axios from 'axios';
 const UNSPLASH_KEY = import.meta.env.VITE_UNSPLASH_KEY
-const pexel_key = import.meta.env.VITE_PEXEL_KEY
-const tenor_key = import.meta.env.VITE_TENOR_KEY
+const PEXEL_KEY = import.meta.env.VITE_PEXEL_KEY
+const TENOR_KEY = import.meta.env.VITE_TENOR_KEY
 
 async function getData(url, config, provider) {
     try {
@@ -39,13 +39,13 @@ export async function getPhotos(query, page = 1, per_page = 30) {
 export async function getVideos(query, per_page = 30) {
     return getData('https://api.pexels.com/videos/search', {
         params: { query, per_page },
-        headers: { Authorization: pexel_key }
+        headers: { Authorization: PEXEL_KEY }
     }, 'Pexels')
 }
 
 export async function getGif(query, limit = 20) {
     return getData('https://tenor.googleapis.com/v2/search', {
-        params: { query, key: tenor_key, limit }
+        params: { query, key: TENOR_KEY, limit }
     }, 'Tenor')
 }
 

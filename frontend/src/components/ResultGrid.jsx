@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { getGif, getPhotos, getVideos } from '../api/MediaApi.js';
+//import { getGif, getPhotos, getVideos } from '../api/MediaApi.js';
 import {setLoading, setError, setResults } from '../features/searchSlice.js';
 import ResultCard from './ResultCard.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import ResultGridShimmer from './ResultGridShimmer.jsx';
 import ErrorState from './ErrorState.jsx';
+import reqPhotos from '../services/upsplashApi.js';
+import reqVideos from '../services/pexelsApi.js';
+import reqGif from '../services/tenorApi.js';
 
 const ResultGrid = () => {
     const [retryCount, setRetryCount] = useState(0);
@@ -12,7 +15,6 @@ const ResultGrid = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        let isActive = true;
         const getdata = async () => {
             try {
                 let data = [];
@@ -26,44 +28,15 @@ const ResultGrid = () => {
                     return;
                 }
                 if (activeTab === 'Photos') {
-                    let response = await getPhotos(query);
-                    data = response.results.map((item) => ({
-                        id: item.id,
-                        type: 'photo',
-                        title: item.alt_description,
-                        thumbnail: item.urls.small,
-                        src: item.urls.full,
-                        url:item.links.html,
-                        save:item.links.download
-                    }));
-                    console.log(isActive);
-                    console.log("response recieved: ",query);
+                    data = await reqPhotos(query);
                     dispatch(setResults(data));
                 }
                 if (activeTab === 'Videos') {
-                    let response = await getVideos(query);
-                    data = response.videos.map((item) => ({
-                        id: item.id,
-                        type: 'video',
-                        title: item.user.name || 'video',
-                        thumbnail: item.image,
-                        src: item.video_files[0].link,
-                        url:item.url
-                    }));
-                    console.log(isActive);
+                    data = await reqVideos(query)
                     dispatch(setResults(data));
                 }
                 if (activeTab === 'GIFs') {
-                    let response = await getGif(query);
-                    data = response.results.map((item) => ({
-                        id: item.id,
-                        type: 'gif',
-                        title:'GIF',
-                        thumbnail: item.media_formats.tinygif.url,
-                        src: item.media_formats.gif.url,
-                        url:item.url
-                    }));
-                    console.log(isActive);
+                    data = await reqGif(query);
                     dispatch(setResults(data));
                 }
             } catch (err) {
@@ -71,9 +44,6 @@ const ResultGrid = () => {
             }
         }
         getdata();
-        return ()=>{
-            isActive = false;
-        }
     }, [query, activeTab, dispatch, retryCount]);
 
     if (error) return (
